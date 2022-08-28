@@ -1,8 +1,6 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <h4 style="color: red">Stop Streaming Video - Beta v0.1</h4>
+  <hr />
   <router-view />
 </template>
 
