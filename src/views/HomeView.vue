@@ -8,7 +8,8 @@
 
     <p>Provider : {{ provider }}</p>
 
-    <p>list <input type="text" v-model="list" /></p>
+    <p>category list <input type="text" v-model="categoryList" /></p>
+    <p>channel list <input type="text" v-model="channelList" /></p>
 
     <p><button @click="canWatch">Test</button></p>
   </div>
@@ -21,7 +22,8 @@ export default {
   name: "HomeView",
   data() {
     return {
-      list: "",
+      categoryList: "",
+      channelList: "",
       mode: "",
       provider: "Youtube",
     };
