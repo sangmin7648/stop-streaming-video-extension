@@ -20,5 +20,6 @@
         }
     ],
     "options_page": "options.html",
-    "devtools_page": "devtools.html"
+    "devtools_page": "devtools.html",
+    "permissions": ["storage", "tabs", "scripting"]
 }
