@@ -17,6 +17,7 @@
 
 <script>
 import { useProviderStore } from "@/store/providerstore.js";
+import { parseProvider } from "@/service/providerparser.js";
 
 export default {
   name: "HomeView",
@@ -24,6 +25,12 @@ export default {
     const providerStore = useProviderStore();
 
     return { providerStore };
+  },
+  created() {
+    // get url from current chrome tab and assign to provider
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      this.providerStore.provider = parseProvider(tabs[0].url);
+    });
   },
   data() {
     return {

@@ -1,3 +1,5 @@
+import { parseYoutubeVideoId } from "@/service/providerparser.js";
+
 function verifyWatch(mode, provider, videoId, property) {
   // query params: provider, videoId, property
   // path params : mode
@@ -17,13 +19,11 @@ function verifyWatch(mode, provider, videoId, property) {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete") {
     if (tab.url.indexOf("youtube.com/watch?") != -1) {
-      // log video id
-      console.log(tab.url.split("v=")[1].split("&")[0]);
       // verify watch
       verifyWatch(
         "youtube",
         "youtube",
-        tab.url.split("v=")[1].split("&")[0],
+        parseYoutubeVideoId(tab.url),
         "title"
       ).then((response) => {
         console.log(response);
