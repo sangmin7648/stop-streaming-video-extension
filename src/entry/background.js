@@ -1,4 +1,5 @@
 import { parseProvider, parseVideoId } from "@/service/providerparser.js";
+import Providers from "@/service/provider.js";
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>
   verifyWatch(tabId, changeInfo, tab)
@@ -7,7 +8,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>
 function verifyWatch(tabId, changeInfo, tab) {
   if (changeInfo.status === "complete") {
     const provider = parseProvider(tab.url);
-    if (provider == "YOUTUBE" && tab.url.includes("watch")) {
+    if (Providers.YOUTUBE == provider && tab.url.includes("watch")) {
       const videoId = parseVideoId(tab.url);
       const properties = [];
       verifyWatchRequest("WHITELIST", provider, videoId, properties).then(

@@ -1,3 +1,5 @@
+import Providers from "./provider";
+
 function parseProvider(url) {
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname;
@@ -7,7 +9,7 @@ function parseProvider(url) {
 
 function parseVideoId(url) {
   const provider = parseProvider(url);
-  if (provider === "YOUTUBE") {
+  if (Providers.YOUTUBE == provider) {
     const parsedUrl = new URL(url);
     const videoId = parsedUrl.searchParams.get("v");
     return videoId;
