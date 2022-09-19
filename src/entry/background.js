@@ -8,10 +8,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>
 function verifyWatch(tabId, changeInfo, tab) {
   if (changeInfo.status === "complete") {
     const provider = parseProvider(tab.url);
+    const videoId = parseVideoId(tab.url);
+    const properties = [];
+    const mode = "WHITELIST";
+
     if (Providers.YOUTUBE == provider && tab.url.includes("watch")) {
-      const videoId = parseVideoId(tab.url);
-      const properties = [];
-      verifyWatchRequest("WHITELIST", provider, videoId, properties).then(
+      verifyWatchRequest(mode, provider, videoId, properties).then(
         (response) => {
           console.log(response);
         }
