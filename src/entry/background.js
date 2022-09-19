@@ -13,11 +13,19 @@ function verifyWatch(tabId, changeInfo, tab) {
     const mode = "WHITELIST";
 
     if (Providers.YOUTUBE == provider && tab.url.includes("watch")) {
-      verifyWatchRequest(mode, provider, videoId, properties).then(
-        (response) => {
-          console.log(response);
-        }
-      );
+      console.log(videoId);
+      verifyWatchRequest(mode, provider, videoId, properties)
+        .then((response) => response.json())
+        .then((data) => {
+          const canWatch = data.canWatch;
+          console.log(canWatch);
+          console.log("hi");
+          chrome.tabs.sendMessage(tabId, {
+            provider: provider,
+            videoId: videoId,
+            canWatch: canWatch,
+          });
+        });
     }
   }
 }
