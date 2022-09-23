@@ -4,19 +4,21 @@
   <div class="home">
     <p>
       mode
-      <input type="radio" v-model="provider.mode" value="BLACKLIST" /> blacklist
-      <input type="radio" v-model="provider.mode" value="WHITELIST" /> whitelist
+      <input type="radio" v-model="providerStore.mode" value="BLACKLIST" />
+      blacklist
+      <input type="radio" v-model="providerStore.mode" value="WHITELIST" />
+      whitelist
     </p>
 
-    <p>Provider : {{ provider.provider }}</p>
+    <p>Provider : {{ providerStore.provider }}</p>
 
     <p>
       category list
-      <input type="text" v-model="provider.categoryList" />
+      <input type="text" v-model="providerStore.categoryList" />
     </p>
     <p>
       channel list
-      <input type="text" v-model="provider.channelList" />
+      <input type="text" v-model="providerStore.channelList" />
     </p>
   </div>
 </template>
@@ -28,9 +30,9 @@ import { parseProvider } from "@/service/providerparser.js";
 export default {
   name: "HomeView",
   setup() {
-    const provider = useProviderStore().provider;
+    const providerStore = useProviderStore();
 
-    return { provider };
+    return { providerStore };
   },
   created() {
     // get url from current chrome tab and assign to provider
