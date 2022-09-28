@@ -9,24 +9,27 @@ function verifyWatch(tabId, changeInfo, tab) {
   if (changeInfo.status === "complete") {
     const provider = parseProvider(tab.url);
     const videoId = parseVideoId(tab.url);
-    const properties = [];
-    const mode = "WHITELIST";
 
-    if (Providers.YOUTUBE == provider && tab.url.includes("watch")) {
-      console.log(videoId);
-      verifyWatchRequest(mode, provider, videoId, properties)
-        .then((response) => response.json())
-        .then((data) => {
-          const canWatch = data.canWatch;
-          console.log(canWatch);
-          console.log("hi");
-          chrome.tabs.sendMessage(tabId, {
-            provider: provider,
-            videoId: videoId,
-            canWatch: canWatch,
+    chrome.storage.local.get("provider", (result) => {
+      const properties = result.provider.categoryList;
+      const mode = result.provider.mode;
+
+      if (Providers.YOUTUBE == provider && tab.url.includes("watch")) {
+        console.log(videoId);
+        verifyWatchRequest(mode, provider, videoId, properties)
+          .then((response) => response.json())
+          .then((data) => {
+            const canWatch = data.canWatch;
+            console.log(canWatch);
+            console.log("hi");
+            chrome.tabs.sendMessage(tabId, {
+              provider: provider,
+              videoId: videoId,
+              canWatch: canWatch,
+            });
           });
-        });
-    }
+      }
+    });
   }
 }
 
